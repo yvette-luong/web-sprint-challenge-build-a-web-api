@@ -13,25 +13,42 @@ I need this code, but don't know where, perhaps should make some middleware, don
 Go code!
 */
 
-const express =  require("express")
+const express =  require("express");
+const morgan = require ("morgan");
+const helmet = require ("helmet");
 //import the routers 
-const actionRouter = require("./routers/actionRouter")
-const projectRouter = require("./routers/projectRouter")
+
+
+const actionRoute = require("./routers/actionRouter");
+// const projectRoute = require("./routers/projectRouter");
+
+
+// const Actiondb = require("./data/helpers/actionModel")
+// const Projectdb = require("./data/helpers/projectModel")
+
 const server = express();
+const logger = morgan("combined") // combined' chooses a pre-made format for the logs
+
 server.use(express.json());
+server.use("/", morgan("---testing for creating API sprint---"));
+server.use("/", helmet());
 
 //endpoints
 //request begins with /api/action use the router 
-server.use("/api/action", actionRouter);
+server.use("/actions", actionRoute);
 //request begins with /api/project use the router 
-server.use("/api/project", projectRouter) 
+// server.use("/projects", projectRoute) 
 
-server.get("/", (req, res) =>{
-    res.send(`<h3> API Sprint </h3>`)
-    res.status(200).json({ api: "testing for sprint", query: req.query });
+
+
+
+server.get("/", (req, res, next ) =>{
+    res.status(200).json({ api: "testing for sprint", query: req.query })
+    // res.send(`<p>API Sprint</p>`) 
+    next();
 });
 
-const port = 5000;
+const port = process.env.PORT || 9000;
 server.listen(port, () => {
-    console.log("\n*** Server Running on http://localhost:5000 ***\n")
+    console.log("\n*** Server Running on http://localhost:9000 ***\n")
 })
