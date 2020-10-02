@@ -3,7 +3,7 @@ const express = require("express");
 const Actiondb = require("../data/helpers/actionModel");
 const actionRoute = express.Router();
 
-//get request to /actions
+//GET request to /actions/:id
 actionRoute.get("/:id", (req, res, next) => {
   Actiondb.get(req.params.id).then((action) => {
     if (action) {
@@ -14,6 +14,7 @@ actionRoute.get("/:id", (req, res, next) => {
   });
 });
 
+//PUT request to actions/:id
 actionRoute.put("/:id", (req, res, next) => {
   const id = req.params.id;
   const changes = req.body;
@@ -31,7 +32,7 @@ actionRoute.put("/:id", (req, res, next) => {
   });
 });
 
-
+//DELETE request to actions/:id
 actionRoute.delete("/:id", (req, res, next ) => {
     const id = req.params.id;
     const changes = req.body;
@@ -39,7 +40,7 @@ actionRoute.delete("/:id", (req, res, next ) => {
     Actiondb.remove(id)
         .then((id) => {
             if (id > 0) {
-                res.status(200).json({ message: " tada tada "});
+                res.status(200).json({ message: " tada tada, you boo! "});
             } else {
                 res.status(404).json({message:" Deleted success "})
             }

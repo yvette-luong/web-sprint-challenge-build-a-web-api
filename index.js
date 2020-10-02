@@ -20,7 +20,7 @@ const helmet = require ("helmet");
 
 
 const actionRoute = require("./routers/actionRouter");
-// const projectRoute = require("./routers/projectRouter");
+const projectRoute = require("./routers/projectRouter");
 
 
 // const Actiondb = require("./data/helpers/actionModel")
@@ -37,7 +37,7 @@ server.use("/", helmet());
 //request begins with /api/action use the router 
 server.use("/actions", actionRoute);
 //request begins with /api/project use the router 
-// server.use("/projects", projectRoute) 
+server.use("/projects", projectRoute) 
 
 
 
