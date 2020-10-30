@@ -81,21 +81,17 @@ actions.project_id = req.params.id;
         res.status(404).json({ message: " Error " });
       }
       if (actions.name === "") {
-        res
-          .status(400)
-          .json({ message: "Please provide name. " });
+        res.status(400).json({ message: "Please provide name. " });
       }
       if (actions) {
         // actions.project_id = id;
         Projectdb.insert(actions);
         res.status(201).json(action);
       } else {
-        res
-          .status(500)
-          .json({ message: "err err err errrr!" });  
+        res.status(500).json({ message: "err err err errrr!" });  
       }
     });
-  });
+  })
   
 
 // DELETE request to /project/:id
